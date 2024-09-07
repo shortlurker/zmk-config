@@ -52,7 +52,7 @@
         bootloader_comb {
             bindings = <&bootloader>;
             key-positions = <17 18>;
-            layer = <3>;
+            layers = <3>;
         };
     };
 
