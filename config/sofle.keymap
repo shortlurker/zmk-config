@@ -10,6 +10,9 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/ext_power.h>
 
+// Mouse
+#include <dt-bindings/zmk/mouse.h>
+
 #define BASE 0
 #define LOWER 1
 #define RAISE 2
@@ -27,7 +30,8 @@
         scroll_encoder: scroll_encoder {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&kp PG_UP>, <&kp PG_DN>;
+            bindings = <&msc MOVE_DOWN>, <&msc MOVE_UP>;
+            tap-ms = <30>;
         };
     };
 
