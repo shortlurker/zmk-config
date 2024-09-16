@@ -12,12 +12,12 @@ manifest:
     #  revision: main
     #  import: app/west.yml
     - name: zmk
-      remote: petejohanson
+      remote: badjeff
       revision: feat/pointers-move-scroll
       import: app/west.yml
     ## Modules ##
     - name: cirque-input-module
-      remote: petejohanson
+      remote: badjeff
       revision: main
     - name: zmk-split-peripheral-input-relay
       remote: badjeff
