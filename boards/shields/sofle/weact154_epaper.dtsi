@@ -1,0 +1,64 @@
+// Weact 1.54" Epaper display (SPI 4 lines connection)
+//
+// Add the following config lines to [shield].config
+//
+// # Weact 1.54" Epaper Display
+// CONFIG_SPI=y
+// CONFIG_I2C=y
+// CONFIG_PINCTRL=y
+// CONFIG_ZMK_DISPLAY_BLANK_ON_IDLE=y
+// CONFIG_ZMK_DISPLAY_DEDICATED_THREAD_STACK_SIZE=4096
+// CONFIG_ZMK_DISPLAY_DEDICATED_THREAD_PRIORITY=10
+// CONFIG_LV_Z_VDB_SIZE=100
+// CONFIG_LV_DPI_DEF=161
+// CONFIG_LV_Z_BITS_PER_PIXEL=1
+//
+
+&pinctrl {
+	spi0_default: spi0_default {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,           // P1.13 D15
+							<NRF_PSEL(SPIM_MOSI, 0, 10)>,  // P0.10 D16
+							<NRF_PSEL(SPIM_MISO, 1, 11)>;  // P1.11 D14
+		};
+	};
+	spi0_sleep: spi0_sleep {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,           // P1.13 D15
+							<NRF_PSEL(SPIM_MOSI, 0, 10)>,  // P0.10 D16
+							<NRF_PSEL(SPIM_MISO, 1, 11)>;  // P1.11 D14
+			low-power-enable;
+		};
+	};
+};
+
+&spi0 {
+    status = "okay";
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&pro_micro 6 GPIO_ACTIVE_LOW>;	        // D6
+             //<&pro_micro 10 GPIO_ACTIVE_LOW>;	        // D10 (From testing this pin does nothing, comment out?)
+
+	ssd16xx: ssd16xxfb@0 {
+		compatible = "gooddisplay,gdeh0154a07", "solomon,ssd1681";
+		spi-max-frequency = <4000000>;
+		reg = <0>;
+		width = <200>;
+		height = <200>;
+		dc-gpios = <&pro_micro 9 GPIO_ACTIVE_LOW>;	     // D9
+		reset-gpios = <&pro_micro 8 GPIO_ACTIVE_LOW>;	 // D8
+		busy-gpios = <&pro_micro 7 GPIO_ACTIVE_HIGH>;	 // D7
+
+		tssv = <0x80>;
+
+		full {
+			border-waveform = <0x05>;
+		};
+
+		partial {
+			border-waveform = <0x3c>;
+		};
+	};
+};
