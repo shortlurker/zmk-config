@@ -5,6 +5,7 @@
  */
 
 #include "sofle.dtsi"
+#include "sofle_cirque.dtsi"
 
 &default_transform {
     col-offset = <6>;
@@ -44,7 +45,6 @@
         prechargep = <0x22>;
     };
 };
-
 
 // Cirque Trackpad
 // Split peripheral input relay module peripheral.
