@@ -1,8 +1,8 @@
 
 // Setup Cirque trackpad with i2c.
 // Requires 3 pins; SCL, SDA and DR (data ready interrupt).
-
-// Add #include "sofle_cirque.dtsi" to .overlay
+// Include this file in central and peripheral overlay file.
+// Add CONFIG_I2C=y to each central and peripheral conf file.
 
 &i2c0 {
     status = "disabled";
