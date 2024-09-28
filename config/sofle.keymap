@@ -19,8 +19,47 @@
 #define ADJUST 3
 
 / {
-    
-        behaviors {
+	/* assign `input-listener` to all pointing devices */
+	/* &glidepoint0 on central, &glidepoint1 on peripheral */
+    tpad_central_listener {
+        compatible = "zmk,input-behavior-listener";
+        device = <&glidepoint0>;
+        // y-invert;
+        // x-invert;
+        // xy-swap;
+        // scale-multiplier = <2>;
+	};
+
+    tpad_peripheral_listener {
+        compatible = "zmk,input-behavior-listener";
+        device = <&glidepoint1>;
+        layers = <BASE>;
+        y-invert;
+        // x-invert;
+        // xy-swap;
+        scale-multiplier = <2>;
+        // scale-divisor = <2>;
+    };
+
+    tpad_peripheral_scroll {
+        compatible = "zmk,input-behavior-listener";
+        device = <&glidepoint1>;
+        layers = <LOWER RAISE>;
+        /* NOTE: only apply input-code overriding for INPUT_EV_REL */
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_HWHEEL>;
+        y-input-code = <INPUT_REL_WHEEL>;
+        bindings = <&ib_wheel_scaler 1 8>;
+    };
+
+    ib_wheel_scaler: ib_wheel_scaler {
+        compatible = "zmk,input-behavior-scaler";
+        #binding-cells = <2>;
+        evt-type = <INPUT_EV_REL>;
+        input-code = <INPUT_REL_WHEEL>;
+    };
+
+    behaviors {
         volume_encoder: volume_encoder {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
@@ -128,7 +167,7 @@
  * |      | INS  | PSCR | GUI  |      |      |                            | PGUP |      |   ^  |      |      | DEL  |
  * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
  * | CAPS |      |      |      |      |      |-----------.    ,-----------| PGDN |  <-  |   v  |  ->  |      | BKSPC|
- * |------+------+------+------+------+------|           |    |           |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|           |    |   MCLK    |------+------+------+------+------+------|
  * |      | UDNO | CUT  | COPY | PASTE|      |-----------|    |-----------|      |      |      |      |      | END  |
  * `--------------------------------------------/       /      \       \--------------------------------------------'
  *               |      |      |      |      | /       /        \       \ |      |      |      |      |
@@ -136,11 +175,11 @@
  *                `----------------------------------'            '----------------------------------'
  */
             bindings = <
-&kp GRAVE  &none       &none      &none        &none        &none                   &none      &none     &none     &none      &none  &kp HOME 
-&none      &kp INS     &kp PSCRN  &kp K_CMENU  &none        &none                   &kp PG_UP  &none     &kp UP    &none      &none  &kp DEL
-&kp CLCK   &none       &none      &none        &none        &none                   &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT  &none  &kp BSPC
-&trans     &kp K_UNDO  &kp K_CUT  &kp K_COPY   &kp K_PASTE  &none   &trans  &trans  &none      &none     &none     &none      &none  &kp END
-                       &trans     &trans       &trans       &trans  &trans  &trans  &trans     &trans    &trans    &trans
+&kp GRAVE  &none       &none      &none        &none        &none                      &none      &none     &none     &none      &none  &kp HOME 
+&none      &kp INS     &kp PSCRN  &kp K_CMENU  &none        &none                      &kp PG_UP  &none     &kp UP    &none      &none  &kp DEL
+&kp CLCK   &none       &none      &none        &none        &none                      &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT  &none  &kp BSPC
+&trans     &kp K_UNDO  &kp K_CUT  &kp K_COPY   &kp K_PASTE  &none   &trans  &mkp MCLK  &none      &none     &none     &none      &none  &kp END
+                       &trans     &trans       &trans       &trans  &trans  &trans     &trans     &trans    &trans    &trans
             >;
 
             sensor-bindings = <&volume_encoder &scroll_encoder>;
@@ -158,7 +197,7 @@
  * |-------+-------+-------+-------+-------+-------|                            |------+------+------+------+------+------|
  * |       |       |       |       |       |       |-----------.    ,-----------|      |      |      |      |      |      |
  * |-------+-------+-------+-------+-------+-------|           |    |           |------+------+------+------+------+------|
- * |       |       |       |       |       |       |-----------|    |-----------|      |      |      |      |      |      |
+ * | BOOTL |       |       |       |       |       |-----------|    |-----------|      |      |      |      |      | BOOTL|
  * `--------------------------------------------------/       /      \       \--------------------------------------------'
  *                 |       |       |       |       | /       /        \       \ |      |      |      |      |
  *                 |       |       |       |       |/       /          \       \|      |      |      |      |
@@ -166,9 +205,9 @@
  */
             bindings = <
 &bt BT_CLR         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                &none  &none  &none  &none  &none  &none
-&ext_power EP_TOG  &none         &none         &none         &none         &studio_unlock                       &none  &none  &none  &none  &none  &none
+&ext_power EP_TOG  &none         &none         &none         &none         &studio_unlock              &none  &none  &none  &none  &none  &none
 &none              &none         &none         &none         &none         &none                       &none  &none  &none  &none  &none  &none
-&none              &none         &none         &none         &none         &none         &none  &none  &none  &none  &none  &none  &none  &none
+&bootloader        &none         &none         &none         &none         &none         &none  &none  &none  &none  &none  &none  &none  &bootloader
                                  &none         &none         &none         &none         &none  &none  &none  &none  &none  &none
             >;
         };

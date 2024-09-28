@@ -1,9 +1,8 @@
 
 // Setup Cirque trackpad with i2c.
 // Requires 3 pins; SCL, SDA and DR (data ready interrupt).
-
-// Rather following the Split Peripheral Input Relay module readme word for word the alias section
-// for the central and periperal is placed here and the file is included in the overlays.
+// Include this file in central and peripheral overlay file.
+// Add CONFIG_I2C=y to each central and peripheral conf file.
 
 &i2c0 {
     status = "disabled";
@@ -11,7 +10,7 @@
         compatible = "cirque,pinnacle";
         reg = <0x2a>;
         status = "disabled";
-        dr-gpios = <&pro_micro 4 (GPIO_ACTIVE_HIGH)>;  // Assign pin for DR. Use pin 4 for Sofle RGB
+        dr-gpios = <&pro_micro 4 (GPIO_ACTIVE_HIGH)>;  // Pin 4 is unused with Sofle RGB PCB.
 
         sleep;
         //no-taps;
@@ -20,25 +19,25 @@
     };
 };
 
-/ {
-	/* assign `input-listener` to all pointing devices */
-	/* &glidepoint0 on central, &glidepoint1 on peripheral */
-
-    tpad_central_listener {
-        compatible = "zmk,input-listener";
-        device = <&glidepoint0>;
-        //xy-swap;
-        y-invert;
-        //x-invert;
-        scale-multiplier = <2>;
-	};
-
-    tpad_peripheral_listener {
-        compatible = "zmk,input-listener";
-        device = <&glidepoint1>;
-        //xy-swap;
-        y-invert;
-        //x-invert;
-        scale-multiplier = <2>;
-    };
-};
+/// {
+//	/* assign `input-listener` to all pointing devices */
+//	/* &glidepoint0 on central, &glidepoint1 on peripheral */
+//
+//    tpad_central_listener {
+//        compatible = "zmk,input-listener";
+//        device = <&glidepoint0>;
+//        //xy-swap;
+//        y-invert;
+//        //x-invert;
+//        scale-multiplier = <2>;        
+//	};
+//
+//    tpad_peripheral_listener {
+//        compatible = "zmk,input-listener";
+//        device = <&glidepoint1>;
+//        //xy-swap;
+//        y-invert;
+//       //x-invert;
+//        scale-multiplier = <2>;       
+//    };
+//};
