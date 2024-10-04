@@ -11,6 +11,7 @@
 #include <dt-bindings/zmk/ext_power.h>
 
 // Mouse
+#define ZMK_MOUSE_DEFAULT_SCRL_VAL 30
 #include <dt-bindings/zmk/mouse.h>
 
 #define BASE 0
@@ -63,7 +64,7 @@
         volume_encoder: volume_encoder {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&kp C_VOL_DN>, <&kp C_VOL_UP>;
+            bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;
         };
 
         scroll_encoder: scroll_encoder {
