@@ -38,8 +38,8 @@
         y-invert;
         // x-invert;
         // xy-swap;
-        scale-multiplier = <2>;
-        // scale-divisor = <2>;
+        scale-multiplier = <3>;
+        scale-divisor = <2>;
     };
 
     tpad_peripheral_scroll {
