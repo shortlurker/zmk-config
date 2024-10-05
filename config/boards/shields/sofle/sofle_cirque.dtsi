@@ -19,6 +19,7 @@
     };
 };
 
+// Split Peripheral Input Relay
 /// {
 //	/* assign `input-listener` to all pointing devices */
 //	/* &glidepoint0 on central, &glidepoint1 on peripheral */
@@ -37,7 +38,7 @@
 //        device = <&glidepoint1>;
 //        //xy-swap;
 //        y-invert;
-//       //x-invert;
+//        //x-invert;
 //        scale-multiplier = <2>;       
 //    };
 //};
