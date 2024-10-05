@@ -11,13 +11,18 @@
 #include <dt-bindings/zmk/ext_power.h>
 
 // Mouse
-#define ZMK_MOUSE_DEFAULT_SCRL_VAL 600
+#define ZMK_MOUSE_DEFAULT_SCRL_VAL 300
 #include <dt-bindings/zmk/mouse.h>
 
 #define BASE 0
 #define LOWER 1
 #define RAISE 2
 #define ADJUST 3
+
+&msc {
+    time-to-max-speed-ms = <0>;  // Default 300
+    acceleration-exponent = <0>; // Default 1
+};
 
 / {
 	/* assign `input-listener` to all pointing devices */
