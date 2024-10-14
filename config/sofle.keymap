@@ -11,7 +11,7 @@
 #include <dt-bindings/zmk/ext_power.h>
 
 // Mouse
-#define ZMK_MOUSE_DEFAULT_SCRL_VAL 300
+#define ZMK_MOUSE_DEFAULT_SCRL_VAL 450 // Default 300
 #include <dt-bindings/zmk/mouse.h>
 
 #define BASE 0
@@ -21,8 +21,8 @@
 #define NUM 4
 
 &msc {
-    time-to-max-speed-ms = <0>;  // Default 300
-    acceleration-exponent = <0>; // Default 1
+   time-to-max-speed-ms = <0>;  // Default 300
+    acceleration-exponent = <0>;   // Default 1
 };
 
 / {
@@ -90,7 +90,7 @@
         td1: tap_dance_numlayer {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <200>;
+            tapping-term-ms = <150>;
             bindings = <&mo LOWER>, <&mo NUM>;
         };
     };
@@ -183,9 +183,9 @@
 /*
  * 
  * ,-----------------------------------------.                            ,-----------------------------------------.
- * |   `  |      |      |      |      |      |                            |      |      |      |      |      | HOME |
+ * |   `  |      |      |      |      |MSC_UP|                            |      |      |      |      |      | HOME |
  * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
- * |      | INS  | PSCR | GUI  |      |      |                            | PGUP |      |   ^  |      |      | DEL  |
+ * |      | INS  | PSCR | GUI  |      |MSC_DN|                            | PGUP |      |   ^  |      |      | DEL  |
  * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
  * | CAPS |      |      |      |      |      |-----------.    ,-----------| PGDN |  <-  |   v  |  ->  |      | BKSPC|
  * |------+------+------+------+------+------|           |    |   MCLK    |------+------+------+------+------+------|
@@ -196,14 +196,14 @@
  *                `----------------------------------'            '----------------------------------'
  */
             bindings = <
-&kp GRAVE  &none       &none      &none        &none        &none                      &none      &none     &none     &none      &none  &kp HOME 
-&none      &kp INS     &kp PSCRN  &kp K_CMENU  &none        &none                      &kp PG_UP  &none     &kp UP    &none      &none  &kp DEL
-&kp CLCK   &none       &none      &none        &none        &none                      &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT  &none  &kp BSPC
-&trans     &kp K_UNDO  &kp K_CUT  &kp K_COPY   &kp K_PASTE  &none   &trans  &mkp MCLK  &none      &none     &none     &none      &none  &kp END
-                       &trans     &trans       &trans       &trans  &trans  &trans     &trans     &trans    &trans    &trans
+&kp GRAVE  &none       &none      &none        &none        &msc SCRL_UP                       &none      &none     &none     &none      &none  &kp HOME 
+&none      &kp INS     &kp PSCRN  &kp K_CMENU  &none        &msc SCRL_DOWN                     &kp PG_UP  &none     &kp UP    &none      &none  &kp DEL
+&kp CLCK   &none       &none      &none        &none        &none                              &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT  &none  &kp BSPC
+&trans     &kp K_UNDO  &kp K_CUT  &kp K_COPY   &kp K_PASTE  &none           &trans  &mkp MCLK  &none      &none     &none     &none      &none  &kp END
+                       &trans     &trans       &trans       &trans          &trans  &trans     &trans     &trans    &trans    &trans
             >;
 
-            sensor-bindings = <&volume_encoder &scroll_encoder>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
         adjust_layer {
@@ -239,24 +239,24 @@
 /*
  * 
  * ,-----------------------------------------.                            ,-----------------------------------------.
- * |      |   7  |   8  |   9  |      |      |                            |      |      |      |      |      |      |
+ * |      |      |   7  |   8  |   9  |BKSPC |                            |      |  7   |  8   |  9   |      |      |
  * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
- * |      |   4  |   5  |   6  |  -   |      |                            |      |      |      |      |      |      |
+ * |      |      |   4  |   5  |   6  |      |                            |      |  4   |  5   |  6   |      |BKSPC |
  * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
- * |      |   1  |   2  |   3  |      |      |-----------.    ,-----------|      |      |      |      |      |      |
+ * |      |      |   1  |   2  |   3  |  -   |-----------.    ,-----------|      |  1   |  2   |  3   |  -   |      |
  * |------+------+------+------+------+------|           |    |           |------+------+------+------+------+------|
- * |      |      |   0  |   .  |      |      |-----------|    |-----------|      |      |      |      |      |      |
+ * |      |      |      |   0  |   .  |Enter |-----------|    |-----------|      |      |  0   |  .   |      |      |
  * `--------------------------------------------/       /      \       \--------------------------------------------'
- *               |      |      |      |      | /       /        \       \ |      |      |      |      |
+ *               |      |      |      |      | /       /        \ Enter \ |      |      |      |      |
  *               |      |      |      |      |/       /          \       \|      |      |      |      |
  *                `----------------------------------'            '----------------------------------'
  */
             bindings = <
-&none  &kp N7  &kp N8  &kp N9    &none      &none                  &none  &none  &none  &none  &none  &none 
-&none  &kp N4  &kp N5  &kp N6    &kp MINUS  &none                  &none  &none  &none  &none  &none  &none
-&none  &kp N1  &kp N2  &kp N3    &none      &none                  &none  &none  &none  &none  &none  &none
-&none  &none   &kp N0  &kp DOT   &none      &none   &none  &none   &none  &none  &none  &none  &none  &none
-               &none   &none     &none      &none   &none  &none   &none  &none  &none  &none
+&none  &none  &kp N7  &kp N8  &kp N9   &kp BSPC                   &none  &kp N7  &kp N8  &kp N9   &none      &none 
+&none  &none  &kp N4  &kp N5  &kp N6   &none                      &none  &kp N4  &kp N5  &kp N6   &none      &kp BSPC
+&none  &none  &kp N1  &kp N2  &kp N3   &kp MINUS                  &none  &kp N1  &kp N2  &kp N3   &kp MINUS  &none
+&none  &none  &none   &kp N0  &kp DOT  &kp RET    &none  &none    &none  &none   &kp N0  &kp DOT  &none      &none
+              &none   &none   &none    &none      &none  &kp RET  &none  &none  &none  &none
             >;
         };
 
