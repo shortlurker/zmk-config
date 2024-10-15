@@ -11,7 +11,7 @@
 #include <dt-bindings/zmk/ext_power.h>
 
 // Mouse
-#define ZMK_MOUSE_DEFAULT_SCRL_VAL 450 // Default 300
+#define ZMK_MOUSE_DEFAULT_SCRL_VAL 600 // Default 300
 #include <dt-bindings/zmk/mouse.h>
 
 #define BASE 0

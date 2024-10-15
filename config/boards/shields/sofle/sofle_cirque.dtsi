@@ -15,7 +15,7 @@
         sleep;
         //no-taps;
         //rotate-90;
-        sensitivity = "2x";
+        sensitivity = "3x";
     };
 };
 
