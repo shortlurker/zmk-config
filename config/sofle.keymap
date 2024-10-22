@@ -13,6 +13,7 @@
 // Mouse
 #define ZMK_MOUSE_DEFAULT_SCRL_VAL 600 // Default 300
 #include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/input_transform.h>
 
 #define BASE 0
 #define LOWER 1
@@ -26,45 +27,105 @@
 };
 
 / {
-	/* assign `input-listener` to all pointing devices */
-	/* &glidepoint0 on central, &glidepoint1 on peripheral */
-    tpad_central_listener {
-        compatible = "zmk,input-behavior-listener";
-        device = <&glidepoint0>;
-        // y-invert;
-        // x-invert;
-        // xy-swap;
-        // scale-multiplier = <2>;
-	};
+// Input Behavior Listener Module
+//
+//	/* assign `input-listener` to all pointing devices */
+//	/* &glidepoint0 on central, &glidepoint1 on peripheral */
+//    tpad_central_listener {
+//        compatible = "zmk,input-behavior-listener";
+//        device = <&glidepoint0>;
+//        // y-invert;
+//        // x-invert;
+//        // xy-swap;
+//        // scale-multiplier = <2>;
+//	};
+//
+//   tpad_peripheral_listener {
+//        compatible = "zmk,input-behavior-listener";
+//        device = <&glidepoint1>;
+//        layers = <BASE>;
+//        y-invert;
+//        // x-invert;
+//        // xy-swap;
+//        scale-multiplier = <3>;
+//        scale-divisor = <2>;
+//   };
+//
+//    tpad_peripheral_scroll {
+//        compatible = "zmk,input-behavior-listener";
+//        device = <&glidepoint1>;
+//        layers = <LOWER RAISE>;
+//        /* NOTE: only apply input-code overriding for INPUT_EV_REL */
+//        evt-type = <INPUT_EV_REL>;
+//        x-input-code = <INPUT_REL_HWHEEL>;
+//        y-input-code = <INPUT_REL_WHEEL>;
+//        bindings = <&ib_wheel_scaler 1 2>;
+//    };
+//
+//    ib_wheel_scaler: ib_wheel_scaler {
+//        compatible = "zmk,input-behavior-scaler";
+//        #binding-cells = <2>;
+//        evt-type = <INPUT_EV_REL>;
+//        input-code = <INPUT_REL_WHEEL>;
+//    };
+// ------------------------
 
-    tpad_peripheral_listener {
-        compatible = "zmk,input-behavior-listener";
+// pr2477 ZMK Input Processors
+    xy_transf: xy_transf {
+        compatible = "zmk,input-processor-transform";
+        #input-processor-cells = <1>;
+        type = <INPUT_EV_REL>;
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
+    };
+
+    scrl_transf: scrl_transf {
+        compatible = "zmk,input-processor-transform";
+        #input-processor-cells = <1>;
+        type = <INPUT_EV_REL>;
+        x-codes = <INPUT_REL_HWHEEL>;
+        y-codes = <INPUT_REL_WHEEL>;
+    };
+
+    xy_scaler: xy_scaler {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X>, <INPUT_REL_Y>;
+        track-remainders;
+    };
+
+    x_scaler: x_scaler {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X>;
+    };
+
+    to_wheel: to_wheel {
+        compatible = "zmk,input-processor-code-mapper";
+        #input-processor-cells = <0>;
+        type = <INPUT_EV_REL>;
+        map = <INPUT_REL_X INPUT_REL_HWHEEL>, <INPUT_REL_Y INPUT_REL_WHEEL>;
+    };
+
+    tpad_mmv_input_listener {
+        compatible = "zmk,input-listener";
         device = <&glidepoint1>;
-        layers = <BASE>;
-        y-invert;
-        // x-invert;
-        // xy-swap;
-        scale-multiplier = <3>;
-        scale-divisor = <2>;
+        input-processors = <&xy_transf (INPUT_TRANSFORM_Y_INVERT)>, <&xy_scaler 3 2>, // Invert y mouse pointer movement, scale
+                           <&scrl_transf (INPUT_TRANSFORM_Y_INVERT)>; // Invert cirque right edge gesture scroll
+        precise {
+            layers = <LOWER>;
+            inherit;
+            input-processors = <&xy_scaler 1 4>;
+        };
+        scroll {
+            layers = <RAISE>;
+            input-processors = <&xy_transf (INPUT_TRANSFORM_Y_INVERT)>, <&xy_scaler 1 2>, <&x_scaler 0 1>, <&to_wheel>,
+                               <&scrl_transf (INPUT_TRANSFORM_Y_INVERT)>;
+        };
     };
-
-    tpad_peripheral_scroll {
-        compatible = "zmk,input-behavior-listener";
-        device = <&glidepoint1>;
-        layers = <LOWER RAISE>;
-        /* NOTE: only apply input-code overriding for INPUT_EV_REL */
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_HWHEEL>;
-        y-input-code = <INPUT_REL_WHEEL>;
-        bindings = <&ib_wheel_scaler 1 8>;
-    };
-
-    ib_wheel_scaler: ib_wheel_scaler {
-        compatible = "zmk,input-behavior-scaler";
-        #binding-cells = <2>;
-        evt-type = <INPUT_EV_REL>;
-        input-code = <INPUT_REL_WHEEL>;
-    };
+// ------------------------
 
     behaviors {
         volume_encoder: volume_encoder {

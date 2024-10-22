@@ -16,6 +16,7 @@
         //no-taps;
         //rotate-90;
         sensitivity = "3x";
+        no-smoothing; // badjeff cirque module fork tweak branch
     };
 };
 
