@@ -12,13 +12,13 @@ manifest:
     #  revision: main
     #  import: app/west.yml
     - name: zmk
-      remote: badjeff
+      remote: petejohanson
       revision: feat/pointers-with-input-processors
       import: app/west.yml
     ## Modules ##
     - name: cirque-input-module
-      remote: badjeff
-      revision: tweak
+      remote: petejohanson
+      revision: main
     - name: zmk-split-peripheral-input-relay
       remote: badjeff
       revision: main
