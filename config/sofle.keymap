@@ -23,7 +23,10 @@
 #define NUM 4
 
 &msc {
-   time-to-max-speed-ms = <0>;  // Default 300
+    time-to-max-speed-ms = <0>;  // Default 300
+    // acceleration exponent 0: uniform speed
+    // acceleration exponent 1: uniform acceleration
+    // acceleration exponent 2: uniform jerk
     acceleration-exponent = <0>;   // Default 1
 };
 
@@ -117,20 +120,19 @@
     //     map = <INPUT_REL_X INPUT_REL_HWHEEL>, <INPUT_REL_Y INPUT_REL_WHEEL>;
     // };
 
-    tpad_mmv_input_listener {
+    glidepoint_input_listener {
         compatible = "zmk,input-listener";
-        device = <&glidepoint1>;
-        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 3 2>, 
-                           <&zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)>;
+        device = <&glidepoint_split>;
+        input-processors = <&zip_xy_scaler 3 2>;
         precise {
             layers = <LOWER>;
-            inherit;
+            //inherit;
             input-processors = <&zip_xy_scaler 1 4>;
         };
         scroll {
             layers = <RAISE>;
-            input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 1 2>, <&zip_x_scaler 0 1>,
-                               <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)>;
+            input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_x_scaler 0 1>, 
+                               <&zip_xy_to_scroll_mapper>;
         };
     };
 // ------------------------
