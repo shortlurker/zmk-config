@@ -10,8 +10,8 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/ext_power.h>
 
-// Mouse
-#define ZMK_MOUSE_DEFAULT_SCRL_VAL 600 // Default 300
+// Mouse (PR#2477)
+#define ZMK_MOUSE_DEFAULT_SCRL_VAL 600 // Increase this value if smooth scrolling is enabled. Default 10
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/input_transform.h>
@@ -31,7 +31,7 @@
 };
 
 / {
-// Input Behavior Listener Module
+// Input Behavior Listener Module (zmk-input-behavior-listener)
 //
 //	/* assign `input-listener` to all pointing devices */
 //	/* &glidepoint0 on central, &glidepoint1 on peripheral */
@@ -74,7 +74,7 @@
 //    };
 // ------------------------
 
-// pr2477 ZMK Native Input Processors
+// ZMK Native Input Processors (PR#2477)
 // #include <input/processors.dtsi>
 // zip_xy_transform
 // zip_scroll_transform

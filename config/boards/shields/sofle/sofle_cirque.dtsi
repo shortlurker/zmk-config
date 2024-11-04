@@ -20,7 +20,7 @@
     };
 };
 
-// Split Peripheral Input Relay
+// Split Peripheral Input Relay (zmk-split-peripheral-input-relay)
 /// {
 //	/* assign `input-listener` to all pointing devices */
 //	/* &glidepoint0 on central, &glidepoint1 on peripheral */
@@ -44,7 +44,7 @@
 //    };
 //};
 
-// ZMK Input Split
+// ZMK Input Split (PR#2477)
 / {
 	split_inputs {
 		#address-cells = <1>;

@@ -37,7 +37,7 @@
     };
 };
 
-// Split peripheral input relay module peripheral.
+// Split peripheral input relay module peripheral. (zmk-split-peripheral-input-relay)
 // / {
 // 	glidepoint1: virtual_input {
 // 		compatible = "zmk,virtual-input";
@@ -50,7 +50,7 @@
 //     };
 // };
 
-// ZMK Input Split
+// ZMK Input Split (PR#2477)
 &glidepoint_split {
     device = <&glidepoint0>;
     // Input processors that are run before event data is sent
