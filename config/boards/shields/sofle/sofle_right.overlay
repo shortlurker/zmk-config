@@ -7,6 +7,9 @@
 #include "sofle.dtsi"
 #include "sofle_cirque.dtsi"
 
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
+
 &default_transform {
     col-offset = <6>;
 };
