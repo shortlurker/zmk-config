@@ -12,7 +12,7 @@ manifest:
     #  revision: main
     #  import: app/west.yml
     - name: zmk
-      remote: badjeff
+      remote: petejohanson
       revision: feat/pointers-with-input-processors
       import: app/west.yml
     ## Modules ##
