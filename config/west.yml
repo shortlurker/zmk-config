@@ -12,9 +12,9 @@ manifest:
       revision: main
       import: app/west.yml
     ## Modules ##
-    - name: zmk-auto-layer
-      remote: urob
-      revision: main
+    #- name: zmk-auto-layer
+    #  remote: urob
+    #  revision: main
     - name: prospector-zmk-module
       remote: carrefinho
       revision: main
