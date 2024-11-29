@@ -17,7 +17,7 @@
 
 / {
     
-        behaviors {
+    behaviors {
         volume_encoder: volume_encoder {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
@@ -28,6 +28,13 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&kp PG_UP>, <&kp PG_DN>;
+        };
+
+        td0: tap_dance_caps_word {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&none>, <&caps_word>;
         };
     };
 
@@ -65,7 +72,7 @@
  * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |                            |   Y  |   U  |   I  |   O  |   P  |BKSPC |
  * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
- * | LCTR |   A  |   S  |   D  |   F  |   G  |-----------.    ,-----------|   H  |   J  |   K  |   L  |   ;  |  '   |
+ * | td0  |   A  |   S  |   D  |   F  |   G  |-----------.    ,-----------|   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|     MUTE  |    |           |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-----------|    |-----------|   N  |   M  |   ,  |   .  |   /  |RShift|
  * `--------------------------------------------/       /      \       \--------------------------------------------'
@@ -76,7 +83,7 @@
             bindings = <
 &kp ESC    &kp N1  &kp N2    &kp N3    &kp N4     &kp N5                          &kp N6     &kp N7     &kp N8     &kp N9   &kp N0    &kp PSCRN
 &kp TAB    &kp Q   &kp W     &kp E     &kp R      &kp T                           &kp Y      &kp U      &kp I      &kp O    &kp P     &kp BSPC
-&kp LCTRL  &kp A   &kp S     &kp D     &kp F      &kp G                           &kp H      &kp J      &kp K      &kp L    &kp SEMI  &kp SQT
+&td0       &kp A   &kp S     &kp D     &kp F      &kp G                           &kp H      &kp J      &kp K      &kp L    &kp SEMI  &kp SQT
 &kp LSHFT  &kp Z   &kp X     &kp C     &kp V      &kp B      &kp C_MUTE  &none    &kp N      &kp M      &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
                    &kp LGUI  &kp LALT  &kp LCTRL  &mo LOWER  &kp SPACE   &kp RET  &mo RAISE  &kp RCTRL  &kp RALT   &kp RGUI
             >;
@@ -123,7 +130,7 @@
  * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
  * |      | INS  | PSCR | GUI  |      |      |                            | PGUP |      |   ^  |      |      | DEL  |
  * |------+------+------+------+------+------|                            |------+------+------+------+------+------|
- * | CAPS |      |      |      |      |      |-----------.    ,-----------| PGDN |  <-  |   v  |  ->  |      | BKSPC|
+ * |CWord |      |      |      |      |      |-----------.    ,-----------| PGDN |  <-  |   v  |  ->  |      | BKSPC|
  * |------+------+------+------+------+------|           |    |           |------+------+------+------+------+------|
  * |      | UDNO | CUT  | COPY | PASTE|      |-----------|    |-----------|      |      |      |      |      | END  |
  * `--------------------------------------------/       /      \       \--------------------------------------------'
@@ -134,7 +141,7 @@
             bindings = <
 &kp GRAVE  &none       &none      &none        &none        &none                   &none      &none     &none     &none      &none  &kp HOME 
 &none      &kp INS     &kp PSCRN  &kp K_CMENU  &none        &none                   &kp PG_UP  &none     &kp UP    &none      &none  &kp DEL
-&kp CLCK   &none       &none      &none        &none        &none                   &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT  &none  &kp BSPC
+&caps_word   &none       &none      &none        &none        &none                   &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT  &none  &kp BSPC
 &trans     &kp K_UNDO  &kp K_CUT  &kp K_COPY   &kp K_PASTE  &none   &trans  &trans  &none      &none     &none     &none      &none  &kp END
                        &trans     &trans       &trans       &trans  &trans  &trans  &trans     &trans    &trans    &trans
             >;
