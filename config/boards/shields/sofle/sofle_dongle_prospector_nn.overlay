@@ -1,0 +1,57 @@
+#include "sofle.dtsi"
+#include "sofle_cirque.dtsi"
+
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
+
+/ {
+    chosen {
+        zmk,kscan = &mock_kscan;
+//      zephyr,display = &sh1106;
+    };
+
+    mock_kscan: kscan_1 {
+        compatible = "zmk,kscan-mock";
+        columns = <0>;
+        rows = <0>;
+        events = <0>;
+    };
+};
+
+/delete-node/ &kscan0;
+
+// This section is needed for the display or will error during compiling.
+&pro_micro_i2c {
+    status = "okay";
+
+    oled: ssd1306@3c {
+        status = "disabled";
+    };
+
+    sh1106: sh1106@3c {
+        status = "disabled";
+    };
+};
+
+// Cirque Trackpad
+// Split peripheral input relay module central.
+// / {
+// 	glidepoint1: virtual_input {
+// 		compatible = "zmk,virtual-input";
+// 	};
+// 	input_relay_config_102 {
+// 		compatible = "zmk,split-peripheral-input-relay";
+// 		relay-channel = <102>;
+// 		device = <&glidepoint1>;
+// 	};
+// };
+
+// ZMK Input Split
+/ {
+    glidepoint_input_listener: glidepoint_input {
+        //compatible = "zmk,input-listener";    // Don't need this if there's one in .keymap
+        device = <&glidepoint_split>;
+        // input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
+        //                    <&zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)>;
+    };
+};

@@ -6,6 +6,14 @@ manifest:
       url-base: https://github.com/petejohanson
     - name: badjeff
       url-base: https://github.com/badjeff
+    - name: carrefinho
+      url-base: https://github.com/carrefinho
+    - name: tokyo2006
+      url-base: https://github.com/tokyo2006
+    - name: urob
+      url-base: https://github.com/urob
+    - name: shortlurker
+      url-base: https://github.com/shortlurker
   projects:
     #- name: zmk
     #  remote: zmkfirmware
@@ -24,7 +32,13 @@ manifest:
     #  revision: main
     #- name: zmk-input-behavior-listener
     #  remote: badjeff
-    #  revision: main   
+    #  revision: main
+    - name: zmk-auto-layer
+      remote: urob
+      revision: main
+    - name: prospector-zmk-module
+      remote: shortlurker
+      revision: nice_nano
   self:
     path: config
     
