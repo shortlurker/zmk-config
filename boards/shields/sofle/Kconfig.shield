@@ -10,6 +10,8 @@ config SHIELD_SOFLE_RIGHT
 config SHIELD_SOFLE_DONGLE_OLED
     def_bool $(shields_list_contains,sofle_dongle_oled)
 
-config SHIELD_SOFLE_DONGLE
-    def_bool $(shields_list_contains,sofle_dongle)
-    
+config SHIELD_SOFLE_DONGLE_PROSPECTOR_XIAO
+    def_bool $(shields_list_contains,sofle_dongle_prospector_xiao)
+
+config SHIELD_SOFLE_DONGLE_PROSPECTOR_NN
+    def_bool $(shields_list_contains,sofle_dongle_prospector_nn)

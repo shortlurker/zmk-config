@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/urob
     - name: carrefinho
       url-base: https://github.com/carrefinho
+    - name: shortlurker
+      url-base: https://github.com/shortlurker
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -16,7 +18,7 @@ manifest:
     #  remote: urob
     #  revision: main
     - name: prospector-zmk-module
-      remote: carrefinho
-      revision: main
+      remote: shortlurker
+      revision: nice_nano
   self:
     path: config
