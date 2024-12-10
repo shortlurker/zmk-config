@@ -15,14 +15,14 @@ manifest:
     - name: shortlurker
       url-base: https://github.com/shortlurker
   projects:
-    #- name: zmk
-    #  remote: zmkfirmware
-    #  revision: main
-    #  import: app/west.yml
     - name: zmk
-      remote: petejohanson
-      revision: feat/pointers-with-input-processors
+      remote: zmkfirmware
+      revision: main
       import: app/west.yml
+    #- name: zmk
+    #  remote: petejohanson
+    #  revision: feat/pointers-with-input-processors
+    #  import: app/west.yml
     ## Modules ##
     - name: cirque-input-module
       remote: petejohanson
