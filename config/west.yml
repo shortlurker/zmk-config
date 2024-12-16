@@ -26,7 +26,7 @@ manifest:
     ## Modules ##
     - name: cirque-input-module
       remote: petejohanson
-      revision: feat/idle-waker-wake-from-sleep-fixes
+      revision: main
     #- name: zmk-split-peripheral-input-relay
     #  remote: badjeff
     #  revision: main

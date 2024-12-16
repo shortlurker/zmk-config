@@ -7,7 +7,6 @@
 / {
     chosen {
         zmk,kscan = &mock_kscan;
-//      zephyr,display = &sh1106;
     };
 
     mock_kscan: kscan_1 {
@@ -20,15 +19,11 @@
 
 /delete-node/ &kscan0;
 
-// This section is needed for the display or will error during compiling.
+// This section is needed or will error during compiling.
 &pro_micro_i2c {
     status = "okay";
 
     oled: ssd1306@3c {
-        status = "disabled";
-    };
-
-    sh1106: sh1106@3c {
         status = "disabled";
     };
 };
