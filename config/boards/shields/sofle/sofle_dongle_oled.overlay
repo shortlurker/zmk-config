@@ -43,21 +43,7 @@
     };
 };
 
-// Cirque Trackpad
-// Split peripheral input relay module central. (zmk-split-peripheral-input-relay)
-// / {
-// 	glidepoint1: virtual_input {
-// 		compatible = "zmk,virtual-input";
-// 	};
-
-// 	input_relay_config_102 {
-// 		compatible = "zmk,split-peripheral-input-relay";
-// 		relay-channel = <102>;
-// 		device = <&glidepoint1>;
-// 	};
-// };
-
-// ZMK Input Split (PR#2477)
+// ZMK Input Split
 / {
     glidepoint_input_listener: glidepoint_input {
         //compatible = "zmk,input-listener";    // Don't need this if there's one in .keymap

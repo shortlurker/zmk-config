@@ -27,12 +27,6 @@ manifest:
     - name: cirque-input-module
       remote: petejohanson
       revision: main
-    #- name: zmk-split-peripheral-input-relay
-    #  remote: badjeff
-    #  revision: main
-    #- name: zmk-input-behavior-listener
-    #  remote: badjeff
-    #  revision: main
     - name: zmk-auto-layer
       remote: urob
       revision: main

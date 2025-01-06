@@ -32,50 +32,7 @@
 };
 
 / {
-// Input Behavior Listener Module
-//
-//	/* assign `input-listener` to all pointing devices */
-//	/* &glidepoint0 on central, &glidepoint1 on peripheral */
-//    tpad_central_listener {
-//        compatible = "zmk,input-behavior-listener";
-//        device = <&glidepoint0>;
-//        // y-invert;
-//        // x-invert;
-//        // xy-swap;
-//        // scale-multiplier = <2>;
-//	};
-//
-//   tpad_peripheral_listener {
-//        compatible = "zmk,input-behavior-listener";
-//        device = <&glidepoint1>;
-//        layers = <BASE>;
-//        y-invert;
-//        // x-invert;
-//        // xy-swap;
-//        scale-multiplier = <3>;
-//        scale-divisor = <2>;
-//   };
-//
-//    tpad_peripheral_scroll {
-//        compatible = "zmk,input-behavior-listener";
-//        device = <&glidepoint1>;
-//        layers = <LOWER RAISE>;
-//        /* NOTE: only apply input-code overriding for INPUT_EV_REL */
-//        evt-type = <INPUT_EV_REL>;
-//        x-input-code = <INPUT_REL_HWHEEL>;
-//        y-input-code = <INPUT_REL_WHEEL>;
-//        bindings = <&ib_wheel_scaler 1 2>;
-//    };
-//
-//    ib_wheel_scaler: ib_wheel_scaler {
-//        compatible = "zmk,input-behavior-scaler";
-//        #binding-cells = <2>;
-//        evt-type = <INPUT_EV_REL>;
-//        input-code = <INPUT_REL_WHEEL>;
-//    };
-// ------------------------
-
-// pr2477 ZMK Native Input Processors
+// ZMK Native Input Processors
 // #include <input/processors.dtsi>
 // zip_xy_transform
 // zip_scroll_transform
